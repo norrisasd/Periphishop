@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Flex, HStack } from "@chakra-ui/react";
+import { Flex, HStack } from "@chakra-ui/react";
 import ReviewCard from "./review-card";
 
 const ReviewSection = (props: any) => {

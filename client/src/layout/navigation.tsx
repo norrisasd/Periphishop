@@ -2,6 +2,7 @@ import { Box, Flex, HStack, Link, Text, useDisclosure } from "@chakra-ui/react";
 import { IoMdCart } from "react-icons/io";
 import React from "react";
 import Cart from "../shared/cart";
+import { useAppSelector } from "../app/hooks";
 
 // type NavItem = {
 //   title: string;
@@ -21,7 +22,7 @@ type Props = {};
 
 const Navigation = (props: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-
+  const cartCount = useAppSelector((state) => state.cart.numOfItems);
   return (
     <Box display="flex" justifyContent="center">
       <Flex
@@ -41,7 +42,7 @@ const Navigation = (props: Props) => {
               <HStack onClick={onOpen}>
                 <IoMdCart />
                 <Cart isOpen={isOpen} onClose={onClose} />
-                <Text>0</Text>
+                <Text>{cartCount}</Text>
               </HStack>
             </Link>
           </HStack>
