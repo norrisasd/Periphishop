@@ -27,17 +27,20 @@ const Navigation = (props: Props) => {
     <Box display="flex" justifyContent="center">
       <Flex
         w="100%"
-        maxWidth="100rem"
+        maxWidth="99rem"
         justifyContent="space-between"
         color="nav.text"
+        m="1rem"
       >
         <Flex>
-          <Text fontSize="22px">Periphishop</Text>
+          <Text fontSize="1.375rem" fontWeight="bold">
+            Periphishop
+          </Text>
         </Flex>
         <Flex>
-          <HStack spacing="1.5rem" fontSize="20px" fontWeight="400">
-            <Link>Home</Link>
-            <Link>Products</Link>
+          <HStack spacing="1.5rem" fontSize="1.25rem" fontWeight="400">
+            <Link href="/">Home</Link>
+            <Link href="/products">Products</Link>
             <Link>
               <HStack onClick={onOpen}>
                 <IoMdCart />

@@ -9,7 +9,6 @@ const LandingImage = (props: any) => {
       width="100%"
       height="45rem"
       maxH="45rem"
-      mt="1rem"
       bgImage={url}
       backgroundPosition="center"
       backgroundSize="cover"

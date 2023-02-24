@@ -1,13 +1,10 @@
 import React from "react";
-import { HomeContent } from "./features/home";
-import { BasicLayout } from "./layout";
+import { useRoutes } from "react-router-dom";
+import routes from "./routes";
 
 function App() {
-  return (
-    <BasicLayout>
-      <HomeContent />
-    </BasicLayout>
-  );
+  const content = useRoutes(routes);
+  return <div className="App">{content}</div>;
 }
 
 export default App;

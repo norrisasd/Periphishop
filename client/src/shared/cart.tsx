@@ -11,7 +11,7 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import React, { useEffect } from "react";
+import React from "react";
 import { IoMdClose } from "react-icons/io";
 import { useAppSelector } from "../app/hooks";
 import CartItem from "./cart-item";
