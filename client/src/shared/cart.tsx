@@ -95,6 +95,10 @@ const Cart = ({ onClose, isOpen }: Props) => {
               width="100%"
               fontSize="1rem"
               fontFamily="harmattan"
+              onClick={() => {
+                window.location.assign("/checkout");
+              }}
+              isDisabled={check ? true : false}
             >
               CHECKOUT
             </Button>
