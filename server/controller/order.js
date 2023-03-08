@@ -13,7 +13,6 @@ export const newOrder = async (req, res) => {
     })
     order.save();
     res.status(201).json({
-        success: true,
         order
     });
     } catch (err) {

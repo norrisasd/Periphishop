@@ -1,5 +1,5 @@
 import { RouteObject } from "react-router-dom";
-import { Home, Products } from "../pages";
+import { Checkout, Home, Products } from "../pages";
 
 const routes: RouteObject[] = [
   {
@@ -16,6 +16,15 @@ const routes: RouteObject[] = [
     children: [
       {
         element: <Products />,
+        index: true,
+      },
+    ],
+  },
+  {
+    path: "/checkout",
+    children: [
+      {
+        element: <Checkout />,
         index: true,
       },
     ],

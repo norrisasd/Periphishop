@@ -23,7 +23,7 @@ const ProductSection = (props: any) => {
           <ProductCard
             imageUrl="https://images.unsplash.com/photo-1605773527852-c546a8584ea3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80"
             name="Logitech G102"
-            price={10}
+            price={23}
           />
         </HStack>
         <Box
@@ -57,6 +57,9 @@ const ProductSection = (props: any) => {
             height="3rem"
             ml="50%"
             width="10rem"
+            onClick={() => {
+              window.location.assign("/products");
+            }}
             _hover={{
               color: "primary",
               bgColor: "whiteAlpha.800",

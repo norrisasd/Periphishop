@@ -31,6 +31,9 @@ const LandingImage = (props: any) => {
             height="3rem"
             width="10rem"
             mt={[0, "2.5rem !important"]}
+            onClick={() => {
+              window.location.assign("/products");
+            }}
             _hover={{
               color: "primary",
               bgColor: "whiteAlpha.800",

@@ -9,13 +9,17 @@ import reportWebVitals from "./reportWebVitals";
 import theme from "./theme/theme";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistStore } from "redux-persist";
+import axios from "axios";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
+axios.defaults.baseURL = "http://localhost:3001/api";
+axios.defaults.headers.common["Authorization"] = "Sample Auth";
+
 const persistor = persistStore(store);
 root.render(
-  <React.StrictMode>
+  <>
     <BrowserRouter>
       <Provider store={store}>
         <ChakraProvider theme={theme} resetCSS={true}>
@@ -25,7 +29,7 @@ root.render(
         </ChakraProvider>
       </Provider>
     </BrowserRouter>
-  </React.StrictMode>
+  </>
 );
 
 // If you want to start measuring performance in your app, pass a function

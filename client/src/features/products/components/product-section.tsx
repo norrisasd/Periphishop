@@ -1,14 +1,34 @@
 import { Flex, SimpleGrid, Text } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ProductCard from "../../home/components/product-card";
 import "@fontsource/harmattan";
+import axios from "axios";
+type Product = {
+  name: string;
+  quantity: Number;
+  price: number;
+  imgUrl: string;
+  type: string;
+};
 
 type Props = {
   title: string;
-  // products: Product[];
 };
 
 const ProductSection = ({ title }: Props) => {
+  const [product, setProduct] = useState<Product[] | null>();
+  useEffect(() => {
+    getProduct();
+  }, []);
+
+  const getProduct = async () => {
+    try {
+      const { data } = await axios.get("/product");
+      setProduct(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <Flex
       alignItems="start"
@@ -26,39 +46,24 @@ const ProductSection = ({ title }: Props) => {
         m="2rem"
         fontFamily="harmattan"
       >
-        {title}
+        {title.toUpperCase()}
       </Text>
       <SimpleGrid columns={4} gap="5rem" m="auto">
-        <ProductCard
-          imageUrl="https://images.unsplash.com/photo-1634306626082-9aad4bdb6e71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1228&q=80"
-          name="GMMK Pro x Akko"
-          price={50}
-        />
-        <ProductCard
-          imageUrl="https://images.unsplash.com/photo-1634306626082-9aad4bdb6e71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1228&q=80"
-          name="GMMK Pro x Akko"
-          price={50}
-        />
-        <ProductCard
-          imageUrl="https://images.unsplash.com/photo-1634306626082-9aad4bdb6e71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1228&q=80"
-          name="GMMK Pro x Akko"
-          price={50}
-        />
-        <ProductCard
-          imageUrl="https://images.unsplash.com/photo-1634306626082-9aad4bdb6e71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1228&q=80"
-          name="GMMK Pro x Akko"
-          price={50}
-        />
-        <ProductCard
-          imageUrl="https://images.unsplash.com/photo-1634306626082-9aad4bdb6e71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1228&q=80"
-          name="GMMK Pro x Akko"
-          price={50}
-        />
-        <ProductCard
-          imageUrl="https://images.unsplash.com/photo-1634306626082-9aad4bdb6e71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1228&q=80"
-          name="GMMK Pro x Akko"
-          price={50}
-        />
+        {product ? (
+          product
+            .filter((prod) => prod.type === title)
+            .map((prod) => {
+              return (
+                <ProductCard
+                  imageUrl={prod.imgUrl}
+                  name={prod.name}
+                  price={prod.price}
+                />
+              );
+            })
+        ) : (
+          <Text color="primary">NO PRODUCTS AVAILABLE</Text>
+        )}
       </SimpleGrid>
     </Flex>
   );
