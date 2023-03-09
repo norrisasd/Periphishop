@@ -6,41 +6,48 @@ import {
   Input,
   VStack,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import InputMask from "react-input-mask";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { updateShippingInfo } from "../../../shared/orderSlice";
 
 type Props = {};
 interface FormData {
-  firstName: string;
-  lastName: string;
+  firstname: string;
+  lastname: string;
   email: string;
   address: string;
-  zipCode: string;
+  zip: string;
   cardNumber: string;
-  expiration: string;
+  exDate: string;
   cvv: string;
 }
 
 const ShippingInformation = (props: Props) => {
-  const [formData, setFormData] = useState<FormData>({
-    firstName: "",
-    lastName: "",
-    email: "",
-    address: "",
-    zipCode: "",
-    cardNumber: "",
-    expiration: "",
-    cvv: "",
-  });
+  const dispatch = useAppDispatch();
+  const shippingInfo = useAppSelector(
+    (state) => state.order.shippingInformation
+  );
+  const [formData, setFormData] = useState<FormData>(shippingInfo);
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
+
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: value,
     }));
   };
+  useEffect(() => {
+    dispatch(updateShippingInfo(formData));
+  }, [formData]);
   return (
-    <VStack spacing="1rem" alignItems="start" maxW="40rem" m="3rem">
+    <VStack
+      spacing="1rem"
+      alignItems="start"
+      width="100%"
+      maxW="40rem"
+      m="3rem"
+    >
       <Heading as="h1" size="md" alignSelf="center" textAlign="center">
         Shipping Information
       </Heading>
@@ -49,9 +56,9 @@ const ShippingInformation = (props: Props) => {
           <FormLabel>First Name</FormLabel>
           <Input
             type="text"
-            name="firstName"
+            name="firstname"
             placeholder="First Name"
-            value={formData.firstName}
+            value={formData.firstname}
             onChange={handleChange}
           />
         </FormControl>
@@ -59,9 +66,9 @@ const ShippingInformation = (props: Props) => {
           <FormLabel>Last Name</FormLabel>
           <Input
             type="text"
-            name="lastName"
+            name="lastname"
             placeholder="Last Name"
-            value={formData.lastName}
+            value={formData.lastname}
             onChange={handleChange}
           />
         </FormControl>
@@ -91,15 +98,18 @@ const ShippingInformation = (props: Props) => {
         <FormLabel>Zip Code</FormLabel>
         <Input
           type="text"
-          name="zipCode"
+          name="zip"
           placeholder="Zip Code"
-          value={formData.zipCode}
+          value={formData.zip}
           onChange={handleChange}
         />
       </FormControl>
       <FormControl isRequired>
         <FormLabel>Credit Card Number</FormLabel>
         <Input
+          as={InputMask}
+          mask="9999 9999 9999 9999"
+          maskChar=""
           type="text"
           name="cardNumber"
           placeholder="Card Number"
@@ -115,9 +125,9 @@ const ShippingInformation = (props: Props) => {
             mask="99/99"
             maskChar=""
             type="text"
-            name="expiration"
+            name="exDate"
             placeholder="MM/YY"
-            value={formData.expiration}
+            value={formData.exDate}
             onChange={handleChange}
           />
         </FormControl>

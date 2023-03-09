@@ -14,8 +14,9 @@ type Props = {
   name: string;
   imageUrl: string;
   price: number;
+  type: string;
 };
-const ProductCard = ({ name, imageUrl, price }: Props) => {
+const ProductCard = ({ name, imageUrl, price, type }: Props) => {
   const [showButton, setShowButton] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const dispatch = useAppDispatch();
@@ -27,6 +28,7 @@ const ProductCard = ({ name, imageUrl, price }: Props) => {
         price: price,
         image: imageUrl,
         quantity: 0,
+        type: type,
       })
     );
   };

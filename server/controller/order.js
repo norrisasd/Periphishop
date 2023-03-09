@@ -1,23 +1,34 @@
-import Order from "../models/order"
+import Order from "../models/order";
 import express from "express";
 
-const router = express.Router()
+const router = express.Router();
 
 export const newOrder = async (req, res) => {
-    try {
-        const { totalPrice, totalQuantity, cartItems } = req.body
+  try {
+    const { shippingInformation, totalPrice, totalQuantity, orderItems } =
+      req.body;
     const order = new Order({
-        totalPrice,
-        totalQuantity,
-        cartItems
-    })
+      shippingInformation,
+      totalPrice,
+      totalQuantity,
+      orderItems,
+    });
     order.save();
     res.status(201).json({
-        order
+      order,
     });
-    } catch (err) {
-        console.log(err)
-        res.sendStatus(400)
-    }
-    
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(400);
+  }
+};
+
+export const getOrder = async (req, res) => {
+  try {
+    const results = await Order.find();
+    res.send(results).status(200);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(400);
+  }
 };

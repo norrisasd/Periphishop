@@ -6,6 +6,7 @@ type Product = {
   image: string;
   price: number;
   quantity: number;
+  type: string;
 };
 type InitialState = {
   cartItems: Product[];
@@ -61,6 +62,10 @@ const cartSlice = createSlice({
       state.cartItems[index].quantity--;
       state.numOfItems--;
     },
+    clearCart(state) {
+      state.cartItems = initialState.cartItems;
+      state.numOfItems = initialState.numOfItems;
+    },
   },
 });
 
@@ -70,4 +75,5 @@ export const {
   removeFromCart,
   incrementQuantity,
   decreaseQuantity,
+  clearCart,
 } = cartSlice.actions;

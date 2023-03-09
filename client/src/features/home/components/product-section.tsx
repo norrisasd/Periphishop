@@ -11,16 +11,19 @@ const ProductSection = (props: any) => {
         </Text>
         <HStack spacing="4rem">
           <ProductCard
+            type="Keyboard"
             imageUrl="https://images.unsplash.com/photo-1634306626082-9aad4bdb6e71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1228&q=80"
             name="GMMK Pro x Akko"
             price={50}
           />
           <ProductCard
+            type="Mouse"
             imageUrl="https://images.unsplash.com/photo-1631749352438-7d576312185d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1631&q=80"
             name="Pwnage Wireless"
             price={30}
           />
           <ProductCard
+            type="Mouse"
             imageUrl="https://images.unsplash.com/photo-1605773527852-c546a8584ea3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80"
             name="Logitech G102"
             price={23}

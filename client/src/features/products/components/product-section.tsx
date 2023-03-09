@@ -55,9 +55,11 @@ const ProductSection = ({ title }: Props) => {
             .map((prod) => {
               return (
                 <ProductCard
+                  key={prod.name}
                   imageUrl={prod.imgUrl}
                   name={prod.name}
                   price={prod.price}
+                  type={prod.type}
                 />
               );
             })

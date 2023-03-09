@@ -26,10 +26,6 @@ const Cart = ({ onClose, isOpen }: Props) => {
   const totalCartItems = useAppSelector((state) => state.cart.numOfItems);
   const check = totalCartItems === 0 ? true : false;
   let subtotal = 0;
-  // useEffect(() => {
-  //   cartItems.map
-
-  // });
   const bodyStle = {
     display: "flex",
     alignItems: "center",

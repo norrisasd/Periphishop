@@ -1,21 +1,65 @@
-import { Button, Text, Heading, VStack, HStack } from "@chakra-ui/react";
+import {
+  Button,
+  Text,
+  Heading,
+  VStack,
+  HStack,
+  ModalOverlay,
+  useDisclosure,
+} from "@chakra-ui/react";
+import axios from "axios";
 import React from "react";
+import { useDispatch } from "react-redux";
 import { useAppSelector } from "../../../app/hooks";
+import { clearCart } from "../../../shared/cartSlice";
+import { clearShippingInfo } from "../../../shared/orderSlice";
 import OrderItem from "./order-item";
+import SuccessModal from "./success-modal";
 
 const CartInformation = (props: any) => {
+  const dispatch = useDispatch();
+  const shippingInfo = useAppSelector(
+    (state) => state.order.shippingInformation
+  );
   const cartItems = useAppSelector((state) => state.cart.cartItems);
   const totalCartItems = useAppSelector((state) => state.cart.numOfItems);
   const check = totalCartItems === 0 ? true : false;
   let shipping = 0;
   let subtotal = 0;
+  const handleSubmit = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    try {
+      await axios.post("/order/new", {
+        shippingInformation: shippingInfo,
+        totalPrice: subtotal + shipping,
+        totalQuantity: totalCartItems,
+        orderItems: cartItems,
+      });
+      dispatch(clearShippingInfo());
+      dispatch(clearCart());
+    } catch (err) {
+      console.log(err);
+    }
+    setOverlay(<OverlayOne />);
+    onOpen();
+  };
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const OverlayOne = () => (
+    <ModalOverlay
+      bg="blackAlpha.300"
+      backdropFilter="blur(10px) hue-rotate(90deg)"
+    />
+  );
+  const [overlay, setOverlay] = React.useState(<OverlayOne />);
+
   return (
     <VStack
       backgroundColor="#FCFDFE"
       spacing="1rem"
       alignItems="start"
-      height="40.5rem"
-      maxW="40rem"
+      width="100%"
+      maxW="23rem"
       m="3rem"
     >
       <Heading as="h1" size="md" alignSelf="center" textAlign="center">
@@ -65,6 +109,7 @@ const CartInformation = (props: any) => {
       </VStack>
 
       <Button
+        onClick={handleSubmit}
         variant="outline"
         alignSelf="center"
         width="100%"
@@ -72,9 +117,11 @@ const CartInformation = (props: any) => {
         mt="1rem"
         colorScheme="blue"
         color="black"
+        isDisabled={check ? true : false}
       >
         PLACE ORDER
       </Button>
+      <SuccessModal isOpen={isOpen} onClose={onClose} overlay={overlay} />
     </VStack>
   );
 };

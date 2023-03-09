@@ -4,11 +4,6 @@ import { CartInformation, ShippingInformation } from "./component";
 import "@fontsource/harmattan";
 
 const CheckoutContent = (props: any) => {
-  //   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-  //     event.preventDefault();
-  //     console.log(formData); // You can submit the form data to the server here
-  //   };
-
   return (
     <Flex
       flexDirection="column"
